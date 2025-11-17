@@ -18,7 +18,8 @@ Train Zen identity on top of Moonshot AI's Kimi K2 Thinking using efficient QLoR
 ## Features
 
 - **Cloud Training**: All training happens on HuggingFace - no local downloads
-- **QLoRA Efficiency**: 4-bit quantized training saves 75% memory
+- **INT4 Base Model**: K2 already quantized to INT4 (~370GB)
+- **QLoRA Efficiency**: LoRA adapters on INT4 model (multi-GPU training)
 - **LoRA Adapters**: Only trains adapters (~100MB) not full model
 - **Auto-Upload**: Adapters pushed directly to `zenlm/zen-max`
 
@@ -26,15 +27,17 @@ Train Zen identity on top of Moonshot AI's Kimi K2 Thinking using efficient QLoR
 
 - **Model**: `moonshotai/Kimi-K2-Thinking`
 - **Size**: 671B parameters (384 experts, 8 active)
-- **Full Weights**: ~1TB
-- **Training Method**: QLoRA on 4-bit quantized model
+- **BF16 Weights**: ~1.3TB (full precision)
+- **INT4 Weights**: ~370GB (quantized on HuggingFace)
+- **Training Method**: QLoRA on INT4 model (requires multi-GPU)
 
 ## Training Configuration
 
 ### Hardware
-- GPU: A100 80GB (provided by Space)
-- VRAM Usage: ~60GB (4-bit quantization)
-- Training Time: 2-4 hours for 1000 steps
+- GPU: 4x A100 80GB or 8x A100 40GB (provided by Space)
+- Model Size: ~370GB (INT4 quantized, 62 shards)
+- VRAM Usage: ~500GB total (370GB model + ~130GB activations)
+- Training Time: 4-8 hours for 1000 steps
 
 ### LoRA Settings
 - Rank: 16 (adjustable 4-64)

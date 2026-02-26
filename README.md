@@ -8,12 +8,12 @@ sdk_version: 4.44.0
 app_file: app.py
 pinned: false
 license: apache-2.0
-short_description: Train Zen identity on Kimi K2 Thinking using QLoRA
+short_description: Train Zen Max identity using QLoRA
 ---
 
 # Zen Max Identity Training Space
 
-Train Zen identity on top of Moonshot AI's Kimi K2 Thinking using efficient QLoRA fine-tuning.
+Train Zen Max identity using QLoRA fine-tuning on top of a large MoE base model.
 
 ## Features
 
@@ -25,7 +25,7 @@ Train Zen identity on top of Moonshot AI's Kimi K2 Thinking using efficient QLoR
 
 ## Base Model
 
-- **Model**: `moonshotai/Kimi-K2-Thinking`
+- **Model**: `zenlm/zen-max` (base architecture: Zen Max 671B MoE)
 - **Size**: 671B parameters (384 experts, 8 active)
 - **BF16 Weights**: ~1.3TB (full precision)
 - **INT4 Weights**: ~370GB (quantized on HuggingFace)
@@ -66,7 +66,7 @@ from peft import PeftModel
 
 # Load base model (can use 4-bit for inference too)
 base_model = AutoModelForCausalLM.from_pretrained(
-    "moonshotai/Kimi-K2-Thinking",
+    "zenlm/zen-max",  # or the base model path
     device_map="auto",
     load_in_4bit=True
 )
@@ -89,7 +89,7 @@ response = model.chat(tokenizer, messages, thinking_budget=128000)
 
 ## Links
 
-- **Base Model**: https://huggingface.co/moonshotai/Kimi-K2-Thinking
+- **Base Model**: https://huggingface.co/zenlm/zen-max
 - **Output Repo**: https://huggingface.co/zenlm/zen-max
 - **Organization**: https://huggingface.co/zenlm
 - **Website**: https://zenlm.org

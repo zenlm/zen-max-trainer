@@ -8,12 +8,12 @@ sdk_version: 4.44.0
 app_file: app.py
 pinned: false
 license: apache-2.0
-short_description: Train Zen identity on Kimi K2 Thinking using QLoRA
+short_description: Train Zen Max identity using efficient QLoRA fine-tuning
 ---
 
 # Zen Max Identity Training Space
 
-Train Zen identity on top of Moonshot AI's Kimi K2 Thinking using efficient QLoRA fine-tuning.
+Train Zen Max identity using efficient QLoRA fine-tuning.
 
 ## Features
 
@@ -25,7 +25,7 @@ Train Zen identity on top of Moonshot AI's Kimi K2 Thinking using efficient QLoR
 
 ## Base Model
 
-- **Model**: `moonshotai/Kimi-K2-Thinking`
+- **Model**: `zenlm/zen-max-base`
 - **Size**: 671B parameters (384 experts, 8 active)
 - **BF16 Weights**: ~1.3TB (full precision)
 - **INT4 Weights**: ~370GB (quantized on HuggingFace)
@@ -54,7 +54,7 @@ Train Zen identity on top of Moonshot AI's Kimi K2 Thinking using efficient QLoR
 
 **LoRA Adapters**: Uploaded to `zenlm/zen-max`
 - Adapter weights: ~100MB
-- Compatible with base K2 model
+- Compatible with zen-max-base model
 - Preserves all reasoning capabilities
 - Adds Zen identity and values
 
@@ -66,7 +66,7 @@ from peft import PeftModel
 
 # Load base model (can use 4-bit for inference too)
 base_model = AutoModelForCausalLM.from_pretrained(
-    "moonshotai/Kimi-K2-Thinking",
+    "zenlm/zen-max-base",
     device_map="auto",
     load_in_4bit=True
 )
@@ -84,12 +84,12 @@ response = model.chat(tokenizer, messages, thinking_budget=128000)
 
 1. **No Downloads**: Train on cloud, never download 1TB model locally
 2. **Efficient**: QLoRA uses 4-bit quantization for minimal memory
-3. **Modular**: Adapters can be loaded on top of any K2 checkpoint
+3. **Modular**: Adapters can be loaded on top of any zen-max-base checkpoint
 4. **Practical**: Inference can also use 4-bit for consumer hardware
 
 ## Links
 
-- **Base Model**: https://huggingface.co/moonshotai/Kimi-K2-Thinking
+- **Base Model**: https://huggingface.co/zenlm/zen-max-base
 - **Output Repo**: https://huggingface.co/zenlm/zen-max
 - **Organization**: https://huggingface.co/zenlm
 - **Website**: https://zenlm.org
